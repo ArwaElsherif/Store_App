@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:store_app/cubit/product/product_cubit.dart';
 import 'package:store_app/cubit/product/product_state.dart';
 import 'package:store_app/cubit/theme/theme_cubit.dart';
+import 'package:store_app/screens/search_screen.dart';
 import 'package:store_app/screens/shopping_cart_screen.dart';
 import 'package:store_app/services/get_all_categories_service.dart';
 import 'package:store_app/widgets/custom_card_widget.dart';
@@ -156,7 +157,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                           ),
                       itemCount: filteredProducts.length,
                       itemBuilder: (context, index) {
-                        return CustomCard(product: filteredProducts[index]);
+                        return CustomCardWidget(product: filteredProducts[index]);
                       },
                     );
                   } else {
@@ -167,6 +168,12 @@ class _HomePageScreenState extends State<HomePageScreen> {
             ),
           ],
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: const Icon(Icons.search),
+         onPressed: () {
+              Navigator.pushNamed(context, SearchScreen.id);
+            },
       ),
     );
   }

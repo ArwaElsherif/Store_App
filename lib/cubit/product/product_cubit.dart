@@ -6,34 +6,67 @@ import 'package:store_app/services/get_all_product_service.dart';
 class ProductsCubit extends Cubit<ProductsState> {
   ProductsCubit() : super(ProductsInitial());
 
-  final List<ProductModel> _products = [];
+  final List<ProductModel> _allProducts = [];   // ✅ الأصلية (من الـ API)
+  final List<ProductModel> _products = [];      // ✅ المعروضة بعد الفلترة
 
   List<ProductModel> get products => _products;
 
   Future<void> fetchProducts() async {
+    emit(ProductLoading());
     try {
       final products = await GetAllProductService().fetchAllProducts();
+      _allProducts.clear();
+      _allProducts.addAll(products);
+
       _products.clear();
       _products.addAll(products);
-      emit(ProductsLoaded(List.from(_products))); // ✅ emit state properly
+
+      emit(ProductsLoaded(List.from(_products))); // ✅ المنتجات اللي بتتعرض
     } catch (e) {
-      emit(ProductsError(e.toString())); // ✅ Error state
+      emit(ProductsError(e.toString()));
     }
   }
 
-  // تخزين كل المنتجات بعد ما تجيبيها من API
+  void searchProducts(String query) {
+    if (query.isEmpty) {
+      _products
+        ..clear()
+        ..addAll(_allProducts);
+    } else {
+      _products
+        ..clear()
+        ..addAll(
+          _allProducts.where(
+            (p) => p.title.toLowerCase().contains(query.toLowerCase()),
+          ),
+        );
+    }
+    emit(ProductsLoaded(List.from(_products))); // ✅ تحديث الحالة
+  }
+
   void setProducts(List<ProductModel> products) {
-    _products.clear();
-    _products.addAll(products);
+    _allProducts
+      ..clear()
+      ..addAll(products);
+
+    _products
+      ..clear()
+      ..addAll(products);
+
     emit(ProductsLoaded(List.from(_products)));
   }
 
-  // تحديث منتج معين بعد ما يتعدل
   void updateProduct(ProductModel updatedProduct) {
-    final index = _products.indexWhere((p) => p.id == updatedProduct.id);
+    final index = _allProducts.indexWhere((p) => p.id == updatedProduct.id);
     if (index != -1) {
-      _products[index] = updatedProduct;
-      emit(ProductsLoaded(List.from(_products)));
+      _allProducts[index] = updatedProduct;
     }
+
+    final filteredIndex = _products.indexWhere((p) => p.id == updatedProduct.id);
+    if (filteredIndex != -1) {
+      _products[filteredIndex] = updatedProduct;
+    }
+
+    emit(ProductsLoaded(List.from(_products)));
   }
 }

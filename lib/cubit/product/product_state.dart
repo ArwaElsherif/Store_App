@@ -3,6 +3,8 @@ sealed class ProductsState {}
 
 class ProductsInitial extends ProductsState {}
 
+class ProductLoading extends ProductsState {}
+
 class ProductsLoaded extends ProductsState {
   final List<ProductModel> products;
   ProductsLoaded(this.products);

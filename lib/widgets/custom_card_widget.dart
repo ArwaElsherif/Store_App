@@ -4,15 +4,15 @@ import 'package:store_app/cubit/cart/cart_cubit.dart';
 import 'package:store_app/models/product_model.dart';
 import 'package:store_app/screens/update_product_screen.dart';
 
-class CustomCard extends StatefulWidget {
-  const CustomCard({super.key, required this.product});
+class CustomCardWidget extends StatefulWidget {
+  const CustomCardWidget({super.key, required this.product});
   final ProductModel product;
 
   @override
-  State<CustomCard> createState() => _CustomCardState();
+  State<CustomCardWidget> createState() => _CustomCardState();
 }
 
-class _CustomCardState extends State<CustomCard> {
+class _CustomCardState extends State<CustomCardWidget> {
   late ProductModel product;
   bool isAdd = false; // ✅ الحالة الافتراضية مش متلون
 

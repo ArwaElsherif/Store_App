@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class CustomTextField extends StatelessWidget {
-  const CustomTextField({
+class CustomTextFieldWidget extends StatelessWidget {
+  const CustomTextFieldWidget({
     super.key,
     required this.hintText,
     this.onChanged,

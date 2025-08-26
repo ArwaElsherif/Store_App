@@ -5,8 +5,8 @@ import 'package:store_app/cubit/cart/cart_cubit.dart';
 import 'package:store_app/cubit/product/product_cubit.dart';
 import 'package:store_app/models/product_model.dart';
 import 'package:store_app/services/update_product_service.dart';
-import 'package:store_app/widgets/custom_button.dart';
-import 'package:store_app/widgets/custom_text_field.dart';
+import 'package:store_app/widgets/custom_button_widget.dart';
+import 'package:store_app/widgets/custom_text_field_widget.dart';
 
 class UpdateProductScreen extends StatefulWidget {
   final ProductModel product;
@@ -74,7 +74,7 @@ class _UpdateProductScreenState extends State<UpdateProductScreen> {
             child: Column(
               children: [
                 const SizedBox(height: 50),
-                CustomTextField(
+                CustomTextFieldWidget(
                   hintText: 'product name',
                   controller: titleController,
                   onChanged: (data) {
@@ -82,7 +82,7 @@ class _UpdateProductScreenState extends State<UpdateProductScreen> {
                   },
                 ),
                 const SizedBox(height: 16),
-                CustomTextField(
+                CustomTextFieldWidget(
                   hintText: 'description',
                   controller: descriptionController,
                   onChanged: (data) {
@@ -90,7 +90,7 @@ class _UpdateProductScreenState extends State<UpdateProductScreen> {
                   },
                 ),
                 const SizedBox(height: 16),
-                CustomTextField(
+                CustomTextFieldWidget(
                   hintText: 'price',
                   controller: priceController,
                   onChanged: (data) {
@@ -99,7 +99,7 @@ class _UpdateProductScreenState extends State<UpdateProductScreen> {
                   keyboardType: TextInputType.number,
                 ),
                 const SizedBox(height: 70),
-                CustomButton(
+                CustomButtonWidget(
                   text: 'Update',
                   onTap: () async {
                     isLoading = true;

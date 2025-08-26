@@ -5,6 +5,7 @@ import 'package:store_app/cubit/product/product_cubit.dart';
 import 'package:store_app/cubit/theme/theme_cubit.dart';
 import 'package:store_app/models/product_model.dart';
 import 'package:store_app/screens/home_page_screen.dart';
+import 'package:store_app/screens/search_screen.dart';
 import 'package:store_app/screens/shopping_cart_screen.dart';
 import 'package:store_app/screens/update_product_screen.dart';
 import 'package:store_app/services/local_storage_service.dart';
@@ -54,6 +55,7 @@ class StoreApp extends StatelessWidget {
                 return UpdateProductScreen(product: product);
               },
               ShoppingCartScreen.id: (context) => const ShoppingCartScreen(),
+              SearchScreen.id: (context) => const SearchScreen(),
             },
             initialRoute: HomePageScreen.id,
           );
