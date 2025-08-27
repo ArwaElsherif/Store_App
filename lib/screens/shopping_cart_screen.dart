@@ -17,10 +17,7 @@ class ShoppingCartScreen extends StatelessWidget {
               return Center(
                 child: Text(
                   "Cart is Empty 🛒",
-                  style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                 ),
               );
             }

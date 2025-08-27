@@ -9,7 +9,7 @@ import 'package:store_app/screens/search_screen.dart';
 import 'package:store_app/screens/shopping_cart_screen.dart';
 import 'package:store_app/screens/update_product_screen.dart';
 import 'package:store_app/services/local_storage_service.dart';
-
+    
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await LocalStorageService.init();

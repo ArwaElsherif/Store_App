@@ -15,15 +15,18 @@ class ProductsCubit extends Cubit<ProductsState> {
     emit(ProductLoading());
     try {
       final products = await GetAllProductService().fetchAllProducts();
-      _allProducts.clear();
-      _allProducts.addAll(products);
+      _allProducts
+        ..clear()
+        ..addAll(products);
 
-      _products.clear();
-      _products.addAll(products);
+      _products
+        ..clear()
+        ..addAll(products);
 
-      emit(ProductsLoaded(List.from(_products))); // ✅ المنتجات اللي بتتعرض
+      emit(ProductsLoaded(List.from(_products)));
     } catch (e) {
-      emit(ProductsError(e.toString()));
+      // ✅ بدل ما نرمي Exception للـ UI، بنبعت Error State بالرسالة
+      emit(ProductsError("Failed to load products. Please check your connection."));
     }
   }
 
@@ -36,12 +39,15 @@ class ProductsCubit extends Cubit<ProductsState> {
       _products
         ..clear()
         ..addAll(
-          _allProducts.where(
-            (p) => p.title.toLowerCase().contains(query.toLowerCase()),
-          ),
+          _allProducts.where((p) {
+            final lowerQuery = query.toLowerCase();
+            return p.title.toLowerCase().contains(lowerQuery) ||
+                p.description.toLowerCase().contains(lowerQuery) ||
+                p.price.toString().contains(lowerQuery); // ✅ بحث بالسعر كمان
+          }),
         );
     }
-    emit(ProductsLoaded(List.from(_products))); // ✅ تحديث الحالة
+    emit(ProductsLoaded(List.from(_products)));
   }
 
   void setProducts(List<ProductModel> products) {

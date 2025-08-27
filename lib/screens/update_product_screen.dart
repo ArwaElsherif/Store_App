@@ -34,8 +34,12 @@ class _UpdateProductScreenState extends State<UpdateProductScreen> {
     super.initState();
     // نملأ الكونترولرز بالبيانات القديمة
     titleController = TextEditingController(text: widget.product.title);
-    priceController = TextEditingController(text: widget.product.price.toString());
-    descriptionController = TextEditingController(text: widget.product.description);
+    priceController = TextEditingController(
+      text: widget.product.price.toString(),
+    );
+    descriptionController = TextEditingController(
+      text: widget.product.description,
+    );
     imageController = TextEditingController(text: widget.product.image);
     category = widget.product.category;
   }
@@ -56,14 +60,11 @@ class _UpdateProductScreenState extends State<UpdateProductScreen> {
       return const Center(child: Text('No product found'));
     }
     final product = args;
-
     return ModalProgressHUD(
       inAsyncCall: isLoading,
       child: Scaffold(
         appBar: AppBar(
-          title: const Text(
-            'Update Product',
-          ),
+          title: const Text('Update Product'),
           centerTitle: true,
           elevation: 0,
           backgroundColor: Colors.transparent,
@@ -108,10 +109,14 @@ class _UpdateProductScreenState extends State<UpdateProductScreen> {
                       final updatedProduct = await updateProduct(product);
 
                       // Update products list
-                      context.read<ProductsCubit>().updateProduct(updatedProduct);
+                      context.read<ProductsCubit>().updateProduct(
+                        updatedProduct,
+                      );
 
                       // Update cart if needed
-                      context.read<CartCubit>().updateProductInCart(updatedProduct);
+                      context.read<CartCubit>().updateProductInCart(
+                        updatedProduct,
+                      );
 
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
@@ -120,7 +125,10 @@ class _UpdateProductScreenState extends State<UpdateProductScreen> {
                         ),
                       );
 
-                      Navigator.pop(context, updatedProduct); // ✅ رجع المنتج الجديد
+                      Navigator.pop(
+                        context,
+                        updatedProduct,
+                      ); // ✅ رجع المنتج الجديد
                     } catch (e) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
